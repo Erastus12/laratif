@@ -7,7 +7,7 @@
     <title>Testing</title>
 </head>
 <body>
-    Hello, Bro!
+    Hello, Broo!
     @foreach($petani as $petanis => $data)
     <tr>    
       <th>{{$data->id}}</th>
