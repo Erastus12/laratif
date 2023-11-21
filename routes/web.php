@@ -14,13 +14,11 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-Route::get('/', function () {
-    return index();
-});
+// Route::get('/users', function ()
+// {
+//     header('Access-Control-Allow-Origin: http://localhost:3000');
 
-Route::get('listpetani', function () {
+//     $petani = DB::table('users')->get();
 
-    $petani = DB::table('users')->get();
-
-    return view('welcome', ['petani' => $petani]);
-});
+//     return json_encode($petani);
+// });
