@@ -14,10 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// TOKEN PROTECTED ROUTE
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// PUBLIC ROUTE (NO NEED TOKEN AUTHENTICATION)
 Route::get('/divisions', function ()
 {
     return response()->json(DB::table('divisions')->get(), 200);

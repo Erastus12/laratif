@@ -12,34 +12,45 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    // ========== SPECIFY TABLE TO USE (NOT MANDATORY => https://stackoverflow.com/a/51746287/19250775) ========== //
+    protected $table = "users";
+
+    // ========== ENABLING AUTO INCREMENT FOR PRIMARY KEY ========== //
+    public $primaryKey = "id";
+    public $incrementing = true;
+
+    // ========== MASS ASSIGNABLE ATTRIBUTES ========== //
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
+    // ========== HIDDEN ATTRIBUTES FOR SERIALIZATION (INVISIBLE WHEN CONVERTING TO ARRAY OR JSON) ========== //
     protected $hidden = [
         'password',
-        'remember_token',
+        'activation_hash',
+        'reset_hash',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
+    // ========== CASTED ATTRIBUTES (CHANGE DATA TYPE) ========== //
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function profile()
+    {
+        // EXAMPLE OF USAGE
+        // $user = User::where('id', 'xxxxxxxx')->first();
+        // $user->profile->full_name WILL RETURN THE USER'S FULL NAME
+        return $this->hasOne(Profile::class);
+    }
+
+    // ========== DEFINE CARDINALITY & RELATIONSHIP BETWEEN POST AND ITS USER ========== //
+    public function user()
+    {
+        // withoutTrashed() WILL INCLUDE ONLY ACTIVE USERS
+        return $this->belongsTo(User::class)->withoutTrashed();
+    }
 }

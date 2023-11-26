@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('article__images', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('posts_id')->comment('ID Berita');
+            $table->unsignedBigInteger('posts_id')->comment('ID Berita');
             $table->string('photo')->comment('Foto');
             $table->timestamps();
         });
